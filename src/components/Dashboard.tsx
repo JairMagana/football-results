@@ -28,21 +28,20 @@ export default function Dashboard() {
     setGroups(groupsData);
     setTeams(teamsData);
     setMatches(matchesData);
+    return { groupsData, matchesData };
   }, []);
 
   const refresh = useCallback(async () => {
     setLoading(true);
     setError("");
     try {
-      const res = await fetch("/api/refresh", { method: "POST" });
-      const data = await res.json().catch(() => ({}));
-      if (data.degraded) {
-        setError("Showing last saved results. Live update unavailable right now.");
+      await fetch("/api/refresh", { method: "POST" }).catch(() => {});
+      const { groupsData, matchesData } = await load();
+      if (groupsData.length === 0 && matchesData.length === 0) {
+        setError("No results available yet.");
       }
-      await load();
     } catch {
-      setError("Network error while updating results.");
-      await load();
+      setError("Could not load results.");
     } finally {
       setLoading(false);
     }
