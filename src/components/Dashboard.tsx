@@ -1,33 +1,38 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import FixturesCarousel from "./FixturesCarousel";
 import GroupTables from "./GroupTables";
 import MatchList from "./MatchList";
-import type { Group, Match, Team } from "@/lib/types";
+import type { Fixture, Group, Match, Team } from "@/lib/types";
 
 export default function Dashboard() {
   const [teams, setTeams] = useState<Team[]>([]);
   const [matches, setMatches] = useState<Match[]>([]);
   const [groups, setGroups] = useState<Group[]>([]);
+  const [fixtures, setFixtures] = useState<Fixture[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   const load = useCallback(async () => {
-    const [groupsRes, teamsRes, matchesRes] = await Promise.all([
+    const [groupsRes, teamsRes, matchesRes, fixturesRes] = await Promise.all([
       fetch("/api/groups"),
       fetch("/api/teams"),
       fetch("/api/matches"),
+      fetch("/api/fixtures"),
     ]);
 
-    const [groupsData, teamsData, matchesData] = await Promise.all([
+    const [groupsData, teamsData, matchesData, fixturesData] = await Promise.all([
       groupsRes.json(),
       teamsRes.json(),
       matchesRes.json(),
+      fixturesRes.json(),
     ]);
 
     setGroups(groupsData);
     setTeams(teamsData);
     setMatches(matchesData);
+    setFixtures(fixturesData);
     return { groupsData, matchesData };
   }, []);
 
@@ -58,6 +63,7 @@ export default function Dashboard() {
   return (
     <div className="dashboard-single">
       {error && <p className="error banner">{error}</p>}
+      <FixturesCarousel fixtures={fixtures} />
       <GroupTables groups={groups} />
       <MatchList matches={matches} teams={teams} />
     </div>

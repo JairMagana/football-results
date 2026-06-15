@@ -7,15 +7,16 @@ export const dynamic = "force-dynamic";
 
 export async function POST() {
   try {
-    const { groups, teams, matches } = await scrapeWorldCup();
+    const { groups, teams, matches, fixtures } = await scrapeWorldCup();
     if (groups.length === 0 && matches.length === 0) {
       return NextResponse.json({ degraded: true, reason: "No data scraped." });
     }
-    await replaceData(groups, teams, matches);
+    await replaceData(groups, teams, matches, fixtures);
     return NextResponse.json({
       groups: groups.length,
       teams: teams.length,
       matches: matches.length,
+      fixtures: fixtures.length,
     });
   } catch (err) {
     // A browser may not be available at runtime (e.g. serverless/sandbox).

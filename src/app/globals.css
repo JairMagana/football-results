@@ -288,6 +288,113 @@ td {
   background: var(--red);
 }
 
+/* ---------- Fixtures carousel ---------- */
+.fixtures-banner {
+  display: flex;
+  align-items: stretch;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--bg);
+}
+
+.fixtures-label {
+  display: flex;
+  align-items: center;
+  padding: 0 1.1rem;
+  background: var(--blue);
+  color: var(--bg);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.fixtures-viewport {
+  position: relative;
+  overflow: hidden;
+  flex: 1;
+}
+
+.fixtures-viewport::before,
+.fixtures-viewport::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 48px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.fixtures-viewport::before {
+  left: 0;
+  background: linear-gradient(to right, var(--bg), transparent);
+}
+
+.fixtures-viewport::after {
+  right: 0;
+  background: linear-gradient(to left, var(--bg), transparent);
+}
+
+.fixtures-track {
+  display: flex;
+  width: max-content;
+  animation: fixtures-scroll 60s linear infinite;
+}
+
+.fixtures-banner:hover .fixtures-track {
+  animation-play-state: paused;
+}
+
+.fixture-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.4rem;
+  border-right: 1px solid var(--line);
+  white-space: nowrap;
+  font-size: 0.88rem;
+}
+
+.fixture-kickoff {
+  font-family: var(--mono);
+  font-size: 0.76rem;
+  color: var(--muted);
+}
+
+.fixture-team {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.fixture-vs {
+  font-size: 0.74rem;
+  color: var(--red);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+@keyframes fixtures-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fixtures-track {
+    animation: none;
+  }
+  .fixtures-viewport {
+    overflow-x: auto;
+  }
+}
+
 /* ---------- Groups ---------- */
 .groups {
   display: flex;

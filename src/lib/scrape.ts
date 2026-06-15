@@ -1,10 +1,12 @@
 import { chromium, type Browser } from "playwright";
-import type { Group, Match, Team } from "./types";
+import type { Fixture, Group, Match, Team } from "./types";
 
 const STANDINGS_URL =
   "https://www.flashscore.com.mx/futbol/mundial/campeonato-del-mundo/clasificacion/";
 const RESULTS_URL =
   "https://www.flashscore.com.mx/futbol/mundial/campeonato-del-mundo/resultados/";
+const FIXTURES_URL =
+  "https://www.flashscore.com.mx/futbol/mundial/campeonato-del-mundo/partidos/";
 const SEASON_YEAR = 2026;
 
 interface RawMatch {
@@ -13,6 +15,19 @@ interface RawMatch {
   away: string;
   homeGoals: number;
   awayGoals: number;
+}
+
+interface RawFixture {
+  time: string;
+  home: string;
+  away: string;
+}
+
+function toKickoff(value: string): string {
+  const match = value.match(/(\d{2})\.(\d{2})\.\s*(\d{2}:\d{2})/);
+  if (!match) return `${SEASON_YEAR}-01-01T00:00`;
+  const [, day, month, time] = match;
+  return `${SEASON_YEAR}-${month}-${day}T${time}`;
 }
 
 function slugify(name: string): string {
@@ -167,16 +182,77 @@ async function scrapeResults(browser: Browser): Promise<{ teams: Team[]; matches
   }
 }
 
+async function scrapeFixtures(browser: Browser): Promise<Fixture[]> {
+  const page = await browser.newPage();
+  try {
+    await page.goto(FIXTURES_URL, { waitUntil: "domcontentloaded", timeout: 30000 });
+    await page.waitForSelector(".event__match", { timeout: 15000 });
+
+    const raw: RawFixture[] = await page.evaluate(() => {
+      const clean = (text: string | null | undefined) =>
+        (text || "")
+          .replace(/Equipo que avanza.*$|Vencedor.*$/i, "")
+          .replace(/\d+$/, "")
+          .trim();
+
+      const nodes = [
+        ...document.querySelectorAll('.headerLeague__wrapper, [class*="event__match"]'),
+      ];
+      const results: RawFixture[] = [];
+
+      for (const node of nodes) {
+        if (node.classList.contains("headerLeague__wrapper")) {
+          if (/clasificaci/i.test(node.textContent || "")) break;
+          continue;
+        }
+
+        const time = node.querySelector(".event__time")?.textContent?.trim() || "";
+        const home = clean(
+          node.querySelector('[class*="event__homeParticipant"]')?.textContent ||
+            node.querySelector(".event__participant--home")?.textContent
+        );
+        const away = clean(
+          node.querySelector('[class*="event__awayParticipant"]')?.textContent ||
+            node.querySelector(".event__participant--away")?.textContent
+        );
+
+        if (!home || !away || !time) continue;
+        results.push({ time, home, away });
+      }
+
+      return results;
+    });
+
+    const fixtures: Fixture[] = [];
+    for (const r of raw) {
+      const kickoff = toKickoff(r.time);
+      fixtures.push({
+        id: `${kickoff}-${slugify(r.home)}-${slugify(r.away)}`,
+        homeTeam: r.home,
+        awayTeam: r.away,
+        kickoff,
+      });
+    }
+
+    fixtures.sort((a, b) => a.kickoff.localeCompare(b.kickoff));
+    return fixtures;
+  } finally {
+    await page.close();
+  }
+}
+
 export async function scrapeWorldCup(): Promise<{
   groups: Group[];
   teams: Team[];
   matches: Match[];
+  fixtures: Fixture[];
 }> {
   const browser = await chromium.launch({ headless: true });
   try {
     const groups = await scrapeGroups(browser);
     const { teams, matches } = await scrapeResults(browser);
-    return { groups, teams, matches };
+    const fixtures = await scrapeFixtures(browser);
+    return { groups, teams, matches, fixtures };
   } finally {
     await browser.close();
   }

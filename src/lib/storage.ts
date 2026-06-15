@@ -1,11 +1,12 @@
 import { promises as fs } from "fs";
 import path from "path";
-import type { Group, Match, Team } from "./types";
+import type { Fixture, Group, Match, Team } from "./types";
 
 const DATA_DIR = path.join(process.cwd(), "data");
 const TEAMS_FILE = path.join(DATA_DIR, "teams.json");
 const MATCHES_FILE = path.join(DATA_DIR, "matches.json");
 const GROUPS_FILE = path.join(DATA_DIR, "groups.json");
+const FIXTURES_FILE = path.join(DATA_DIR, "fixtures.json");
 
 async function ensureDataDir() {
   await fs.mkdir(DATA_DIR, { recursive: true });
@@ -38,12 +39,18 @@ export async function getGroups(): Promise<Group[]> {
   return readJsonFile(GROUPS_FILE, []);
 }
 
+export async function getFixtures(): Promise<Fixture[]> {
+  return readJsonFile(FIXTURES_FILE, []);
+}
+
 export async function replaceData(
   groups: Group[],
   teams: Team[],
-  matches: Match[]
+  matches: Match[],
+  fixtures: Fixture[]
 ): Promise<void> {
   await writeJsonFile(GROUPS_FILE, groups);
   await writeJsonFile(TEAMS_FILE, teams);
   await writeJsonFile(MATCHES_FILE, matches);
+  await writeJsonFile(FIXTURES_FILE, fixtures);
 }

@@ -12,6 +12,13 @@ export interface Match {
   playedAt: string;
 }
 
+export interface Fixture {
+  id: string;
+  homeTeam: string;
+  awayTeam: string;
+  kickoff: string;
+}
+
 export interface GroupRow {
   teamName: string;
   played: number;
