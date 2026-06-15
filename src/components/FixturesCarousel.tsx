@@ -7,9 +7,9 @@ interface FixturesCarouselProps {
 }
 
 export default function FixturesCarousel({ fixtures }: FixturesCarouselProps) {
-  const upcoming = fixtures
-    .filter((f) => new Date(f.kickoff).getTime() >= Date.now())
-    .sort((a, b) => a.kickoff.localeCompare(b.kickoff));
+  const sorted = [...fixtures].sort((a, b) => a.kickoff.localeCompare(b.kickoff));
+  const future = sorted.filter((f) => new Date(f.kickoff).getTime() >= Date.now());
+  const upcoming = future.length > 0 ? future : sorted;
 
   if (upcoming.length === 0) {
     return null;
