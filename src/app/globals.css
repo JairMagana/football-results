@@ -342,7 +342,7 @@ td {
 .fixtures-track {
   display: flex;
   width: max-content;
-  animation: fixtures-scroll 240s linear infinite;
+  animation: fixtures-scroll 300s linear infinite;
 }
 
 .fixtures-banner:hover .fixtures-track {
