@@ -297,7 +297,7 @@ td {
 
 .groups-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
   gap: 1rem;
 }
 
@@ -318,21 +318,33 @@ td {
 }
 
 .group-table {
-  font-size: 0.84rem;
-}
-
-.group-table {
   width: 100%;
   table-layout: fixed;
+  font-size: 0.82rem;
 }
 
 .group-table th,
 .group-table td {
-  padding: 0.55rem 0.25rem;
+  padding: 0.5rem 0;
+  text-align: center;
+}
+
+.group-table th {
+  font-size: 0.66rem;
+}
+
+.group-table th:first-child,
+.group-table td:first-child {
+  padding-left: 1.1rem;
+}
+
+.group-table th:last-child,
+.group-table td:last-child {
+  padding-right: 1.1rem;
 }
 
 .group-table .group-team-col {
-  width: 42%;
+  width: 38%;
   text-align: left;
   font-family: var(--sans);
   font-weight: 600;
@@ -366,6 +378,10 @@ td {
   background: var(--blue-soft);
   border-color: var(--blue);
   color: var(--blue);
+}
+
+.group-table tbody tr:nth-child(-n + 2) {
+  background: var(--blue-soft);
 }
 
 .group-pts {
