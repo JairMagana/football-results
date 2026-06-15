@@ -6,9 +6,15 @@
   --muted: #737373;
   --line: #e5e5e5;
   --line-strong: #d4d4d4;
-  --accent: #0a0a0a;
+  --blue: #2563eb;
+  --blue-dark: #1d4ed8;
+  --blue-soft: #eff4ff;
+  --red: #dc2626;
+  --red-dark: #b91c1c;
+  --red-soft: #fef2f2;
+  --accent: var(--blue);
   --positive: #15803d;
-  --negative: #b91c1c;
+  --negative: var(--red);
   --radius: 12px;
   --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
   --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -69,7 +75,7 @@ body {
   display: grid;
   place-items: center;
   font-size: 1rem;
-  background: var(--ink);
+  background: var(--blue);
   color: var(--bg);
 }
 
@@ -93,7 +99,7 @@ body {
   letter-spacing: 0.16em;
   font-size: 0.72rem;
   font-weight: 700;
-  color: var(--muted);
+  color: var(--blue);
 }
 
 .hero h1 {
@@ -214,7 +220,7 @@ td {
 
 .points {
   font-weight: 700;
-  color: var(--ink);
+  color: var(--blue);
 }
 
 .positive {
@@ -226,11 +232,19 @@ td {
 }
 
 .zone-champions td:first-child {
-  box-shadow: inset 3px 0 0 var(--ink);
+  box-shadow: inset 3px 0 0 var(--blue);
+}
+
+.zone-champions {
+  background: var(--blue-soft);
 }
 
 .zone-relegation td:first-child {
-  box-shadow: inset 3px 0 0 var(--negative);
+  box-shadow: inset 3px 0 0 var(--red);
+}
+
+.zone-relegation {
+  background: var(--red-soft);
 }
 
 .legend {
@@ -254,11 +268,11 @@ td {
 }
 
 .legend-item.champions::before {
-  background: var(--ink);
+  background: var(--blue);
 }
 
 .legend-item.relegation::before {
-  background: var(--negative);
+  background: var(--red);
 }
 
 /* ---------- Form ---------- */
@@ -299,8 +313,8 @@ select {
 input:focus,
 select:focus {
   outline: none;
-  border-color: var(--ink);
-  box-shadow: 0 0 0 3px rgba(10, 10, 10, 0.08);
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
 }
 
 .score-row {
@@ -328,7 +342,7 @@ select:focus {
 }
 
 .btn-primary {
-  background: var(--ink);
+  background: var(--blue);
   color: var(--bg);
   padding: 0.75rem 1rem;
   font-weight: 600;
@@ -336,7 +350,7 @@ select:focus {
 }
 
 .btn-primary:hover:not(:disabled) {
-  background: #262626;
+  background: var(--blue-dark);
 }
 
 .btn-primary:disabled {
@@ -409,7 +423,7 @@ select:focus {
   font-weight: 700;
   font-size: 1rem;
   font-family: var(--mono);
-  color: var(--ink);
+  color: var(--blue);
 }
 
 .empty-state,
