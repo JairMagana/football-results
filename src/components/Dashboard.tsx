@@ -1,33 +1,33 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import LeagueTable from "./LeagueTable";
+import GroupTables from "./GroupTables";
 import MatchList from "./MatchList";
-import type { Match, StandingRow, Team } from "@/lib/types";
+import type { Group, Match, Team } from "@/lib/types";
 
 export default function Dashboard() {
   const [teams, setTeams] = useState<Team[]>([]);
   const [matches, setMatches] = useState<Match[]>([]);
-  const [standings, setStandings] = useState<StandingRow[]>([]);
+  const [groups, setGroups] = useState<Group[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   const load = useCallback(async () => {
-    const [teamsRes, matchesRes, standingsRes] = await Promise.all([
+    const [groupsRes, teamsRes, matchesRes] = await Promise.all([
+      fetch("/api/groups"),
       fetch("/api/teams"),
       fetch("/api/matches"),
-      fetch("/api/standings"),
     ]);
 
-    const [teamsData, matchesData, standingsData] = await Promise.all([
+    const [groupsData, teamsData, matchesData] = await Promise.all([
+      groupsRes.json(),
       teamsRes.json(),
       matchesRes.json(),
-      standingsRes.json(),
     ]);
 
+    setGroups(groupsData);
     setTeams(teamsData);
     setMatches(matchesData);
-    setStandings(standingsData);
   }, []);
 
   const refresh = useCallback(async () => {
@@ -35,9 +35,9 @@ export default function Dashboard() {
     setError("");
     try {
       const res = await fetch("/api/refresh", { method: "POST" });
-      if (!res.ok) {
-        const data = await res.json().catch(() => ({}));
-        setError(data.error ?? "Could not update results.");
+      const data = await res.json().catch(() => ({}));
+      if (data.degraded) {
+        setError("Showing last saved results. Live update unavailable right now.");
       }
       await load();
     } catch {
@@ -59,7 +59,7 @@ export default function Dashboard() {
   return (
     <div className="dashboard-single">
       {error && <p className="error banner">{error}</p>}
-      <LeagueTable standings={standings} />
+      <GroupTables groups={groups} />
       <MatchList matches={matches} teams={teams} />
     </div>
   );

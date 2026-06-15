@@ -12,8 +12,7 @@ export interface Match {
   playedAt: string;
 }
 
-export interface StandingRow {
-  teamId: string;
+export interface GroupRow {
   teamName: string;
   played: number;
   won: number;
@@ -23,4 +22,9 @@ export interface StandingRow {
   goalsAgainst: number;
   goalDifference: number;
   points: number;
+}
+
+export interface Group {
+  name: string;
+  rows: GroupRow[];
 }

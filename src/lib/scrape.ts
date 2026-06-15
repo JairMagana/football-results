@@ -1,7 +1,9 @@
-import { chromium } from "playwright";
-import type { Match, Team } from "./types";
+import { chromium, type Browser } from "playwright";
+import type { Group, Match, Team } from "./types";
 
-const SOURCE_URL =
+const STANDINGS_URL =
+  "https://www.flashscore.com.mx/futbol/mundial/campeonato-del-mundo/clasificacion/";
+const RESULTS_URL =
   "https://www.flashscore.com.mx/futbol/mundial/campeonato-del-mundo/resultados/";
 const SEASON_YEAR = 2026;
 
@@ -29,11 +31,71 @@ function toIsoDate(ddmm: string): string {
   return `${SEASON_YEAR}-${month}-${day}`;
 }
 
-export async function scrapeWorldCup(): Promise<{ teams: Team[]; matches: Match[] }> {
-  const browser = await chromium.launch({ headless: true });
+async function scrapeGroups(browser: Browser): Promise<Group[]> {
+  const page = await browser.newPage();
   try {
-    const page = await browser.newPage();
-    await page.goto(SOURCE_URL, { waitUntil: "domcontentloaded", timeout: 30000 });
+    await page.goto(STANDINGS_URL, { waitUntil: "domcontentloaded", timeout: 30000 });
+    await page.waitForSelector(".ui-table__row", { timeout: 15000 });
+
+    return await page.evaluate(() => {
+      const nodes = [
+        ...document.querySelectorAll(".table__headerCell--participant, .ui-table__row"),
+      ];
+
+      type Row = {
+        teamName: string;
+        played: number;
+        won: number;
+        drawn: number;
+        lost: number;
+        goalsFor: number;
+        goalsAgainst: number;
+        goalDifference: number;
+        points: number;
+      };
+      const groups: { name: string; rows: Row[] }[] = [];
+      let current: { name: string; rows: Row[] } | null = null;
+
+      for (const node of nodes) {
+        const text = (node.textContent || "").trim();
+        const header = text.match(/^Grupo ([A-L])$/);
+        if (header) {
+          current = { name: header[1], rows: [] };
+          groups.push(current);
+          continue;
+        }
+        if (!current || !node.classList.contains("ui-table__row")) continue;
+
+        const cells = [...node.children].map((c) => (c.textContent || "").trim());
+        const teamName = cells[1];
+        const goalsIdx = cells.findIndex((c) => /^\d+:\d+$/.test(c));
+        if (!teamName || goalsIdx < 0) continue;
+
+        const [goalsFor, goalsAgainst] = cells[goalsIdx].split(":").map(Number);
+        current.rows.push({
+          teamName,
+          played: Number(cells[goalsIdx - 4]),
+          won: Number(cells[goalsIdx - 3]),
+          drawn: Number(cells[goalsIdx - 2]),
+          lost: Number(cells[goalsIdx - 1]),
+          goalsFor,
+          goalsAgainst,
+          goalDifference: goalsFor - goalsAgainst,
+          points: Number(cells[goalsIdx + 2]),
+        });
+      }
+
+      return groups.filter((g) => g.rows.length > 0);
+    });
+  } finally {
+    await page.close();
+  }
+}
+
+async function scrapeResults(browser: Browser): Promise<{ teams: Team[]; matches: Match[] }> {
+  const page = await browser.newPage();
+  try {
+    await page.goto(RESULTS_URL, { waitUntil: "domcontentloaded", timeout: 30000 });
     await page.waitForSelector(".event__match", { timeout: 15000 });
 
     const raw: RawMatch[] = await page.evaluate(() => {
@@ -49,7 +111,6 @@ export async function scrapeWorldCup(): Promise<{ teams: Team[]; matches: Match[
       const results: RawMatch[] = [];
 
       for (const node of nodes) {
-        // Stop once we leave the World Cup finals and reach the qualifiers.
         if (node.classList.contains("headerLeague__wrapper")) {
           if (/clasificaci/i.test(node.textContent || "")) break;
           continue;
@@ -69,10 +130,7 @@ export async function scrapeWorldCup(): Promise<{ teams: Team[]; matches: Match[
 
         const homeGoals = Number(hg);
         const awayGoals = Number(ag);
-
-        if (!home || !away || Number.isNaN(homeGoals) || Number.isNaN(awayGoals)) {
-          continue;
-        }
+        if (!home || !away || Number.isNaN(homeGoals) || Number.isNaN(awayGoals)) continue;
 
         results.push({ date: time, home, away, homeGoals, awayGoals });
       }
@@ -104,6 +162,21 @@ export async function scrapeWorldCup(): Promise<{ teams: Team[]; matches: Match[
 
     const teams = [...teamMap.values()].sort((a, b) => a.name.localeCompare(b.name));
     return { teams, matches };
+  } finally {
+    await page.close();
+  }
+}
+
+export async function scrapeWorldCup(): Promise<{
+  groups: Group[];
+  teams: Team[];
+  matches: Match[];
+}> {
+  const browser = await chromium.launch({ headless: true });
+  try {
+    const groups = await scrapeGroups(browser);
+    const { teams, matches } = await scrapeResults(browser);
+    return { groups, teams, matches };
   } finally {
     await browser.close();
   }

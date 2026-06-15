@@ -288,6 +288,91 @@ td {
   background: var(--red);
 }
 
+/* ---------- Groups ---------- */
+.groups {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.groups-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1rem;
+}
+
+.group-card {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.group-title {
+  padding: 0.85rem 1.1rem;
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: -0.01em;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-subtle);
+}
+
+.group-table {
+  font-size: 0.84rem;
+}
+
+.group-table {
+  width: 100%;
+  table-layout: fixed;
+}
+
+.group-table th,
+.group-table td {
+  padding: 0.55rem 0.25rem;
+}
+
+.group-table .group-team-col {
+  width: 42%;
+  text-align: left;
+  font-family: var(--sans);
+  font-weight: 600;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.group-table thead .group-team-col {
+  font-family: var(--sans);
+  font-weight: 600;
+}
+
+.group-pos {
+  display: inline-grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  margin-right: 0.5rem;
+  border-radius: 4px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--line);
+  font-size: 0.7rem;
+  font-family: var(--mono);
+  color: var(--muted);
+  vertical-align: middle;
+}
+
+.group-table tbody tr:nth-child(-n + 2) .group-pos {
+  background: var(--blue-soft);
+  border-color: var(--blue);
+  color: var(--blue);
+}
+
+.group-pts {
+  font-weight: 700;
+  color: var(--blue);
+}
+
 /* ---------- Form ---------- */
 .match-form {
   display: flex;
