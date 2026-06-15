@@ -1,0 +1,242 @@
+[
+  {
+    "homeTeamId": "brentford",
+    "awayTeamId": "aston-villa",
+    "homeGoals": 0,
+    "awayGoals": 1,
+    "playedAt": "2025-08-14",
+    "id": "26b8f99b-5098-46f1-a10e-5f46a475761e"
+  },
+  {
+    "homeTeamId": "chelsea",
+    "awayTeamId": "tottenham",
+    "homeGoals": 0,
+    "awayGoals": 0,
+    "playedAt": "2025-08-15",
+    "id": "9f9e33ab-d230-4e13-a071-37ca3af24b30"
+  },
+  {
+    "homeTeamId": "west-ham",
+    "awayTeamId": "southampton",
+    "homeGoals": 2,
+    "awayGoals": 1,
+    "playedAt": "2025-08-15",
+    "id": "8100bac4-5e83-49cb-a0a8-adf0f64dc4ce"
+  },
+  {
+    "homeTeamId": "ipswich",
+    "awayTeamId": "arsenal",
+    "homeGoals": 2,
+    "awayGoals": 3,
+    "playedAt": "2025-08-15",
+    "id": "b1372daa-46eb-4b1a-a13d-53aa3d01fcee"
+  },
+  {
+    "homeTeamId": "liverpool",
+    "awayTeamId": "wolves",
+    "homeGoals": 2,
+    "awayGoals": 1,
+    "playedAt": "2025-08-15",
+    "id": "8911344c-902c-46aa-a233-b26e687c4085"
+  },
+  {
+    "homeTeamId": "man-city",
+    "awayTeamId": "leicester",
+    "homeGoals": 2,
+    "awayGoals": 1,
+    "playedAt": "2025-08-15",
+    "id": "dcf3090f-6480-4318-8c48-42d4f6ceeff3"
+  },
+  {
+    "homeTeamId": "crystal-palace",
+    "awayTeamId": "everton",
+    "homeGoals": 2,
+    "awayGoals": 0,
+    "playedAt": "2025-08-15",
+    "id": "16733f63-14be-4d5b-831c-a0004c213203"
+  },
+  {
+    "homeTeamId": "brighton",
+    "awayTeamId": "newcastle",
+    "homeGoals": 1,
+    "awayGoals": 2,
+    "playedAt": "2025-08-16",
+    "id": "b5fe96ee-82a5-4615-bfc7-b4b149f5d283"
+  },
+  {
+    "homeTeamId": "bournemouth",
+    "awayTeamId": "fulham",
+    "homeGoals": 2,
+    "awayGoals": 3,
+    "playedAt": "2025-08-16",
+    "id": "1ec18212-6e71-4b3d-ab65-b67a23d54040"
+  },
+  {
+    "homeTeamId": "nottingham",
+    "awayTeamId": "man-utd",
+    "homeGoals": 2,
+    "awayGoals": 1,
+    "playedAt": "2025-08-16",
+    "id": "bd25b2ee-2889-4ab0-b4ca-e8c5bd3f242f"
+  },
+  {
+    "homeTeamId": "fulham",
+    "awayTeamId": "liverpool",
+    "homeGoals": 0,
+    "awayGoals": 3,
+    "playedAt": "2025-08-21",
+    "id": "3fd23bb5-28e0-4bc6-88bf-e3605bb3b757"
+  },
+  {
+    "homeTeamId": "man-utd",
+    "awayTeamId": "ipswich",
+    "homeGoals": 3,
+    "awayGoals": 0,
+    "playedAt": "2026-08-21",
+    "id": "0c3dc565-3689-4198-9c30-13977fe66dd1"
+  },
+  {
+    "homeTeamId": "everton",
+    "awayTeamId": "bournemouth",
+    "homeGoals": 2,
+    "awayGoals": 2,
+    "playedAt": "2026-08-22",
+    "id": "36cface3-5132-48f0-8602-7c432c6cdcf8"
+  },
+  {
+    "homeTeamId": "southampton",
+    "awayTeamId": "tottenham",
+    "homeGoals": 1,
+    "awayGoals": 1,
+    "playedAt": "2026-08-22",
+    "id": "4191b479-d898-4191-849c-0fb9a65be34e"
+  },
+  {
+    "homeTeamId": "aston-villa",
+    "awayTeamId": "west-ham",
+    "homeGoals": 1,
+    "awayGoals": 2,
+    "playedAt": "2026-08-22",
+    "id": "e96247aa-cde4-4045-af45-8700a9ff479b"
+  },
+  {
+    "homeTeamId": "arsenal",
+    "awayTeamId": "brentford",
+    "homeGoals": 2,
+    "awayGoals": 1,
+    "playedAt": "2026-08-22",
+    "id": "dafea6ff-2ff8-4edb-b7d9-c00e30be74df"
+  },
+  {
+    "homeTeamId": "wolves",
+    "awayTeamId": "brighton",
+    "homeGoals": 0,
+    "awayGoals": 0,
+    "playedAt": "2026-08-22",
+    "id": "d4fe0cb6-1656-4e3a-89bd-245239b25486"
+  },
+  {
+    "homeTeamId": "leicester",
+    "awayTeamId": "crystal-palace",
+    "homeGoals": 0,
+    "awayGoals": 1,
+    "playedAt": "2026-08-22",
+    "id": "583bc946-dc58-4c24-94a9-d1a257a114dd"
+  },
+  {
+    "homeTeamId": "newcastle",
+    "awayTeamId": "nottingham",
+    "homeGoals": 2,
+    "awayGoals": 0,
+    "playedAt": "2026-08-22",
+    "id": "f3b73533-743b-4804-85db-dad2a3c5b868"
+  },
+  {
+    "homeTeamId": "man-city",
+    "awayTeamId": "chelsea",
+    "homeGoals": 1,
+    "awayGoals": 0,
+    "playedAt": "2026-08-23",
+    "id": "33d4b150-edb3-466d-806c-b50f5bef992e"
+  },
+  {
+    "homeTeamId": "bournemouth",
+    "awayTeamId": "leicester",
+    "homeGoals": 2,
+    "awayGoals": 3,
+    "playedAt": "2026-08-28",
+    "id": "77fd1de4-8aee-4c03-a5b2-cbae373123aa"
+  },
+  {
+    "homeTeamId": "liverpool",
+    "awayTeamId": "everton",
+    "homeGoals": 1,
+    "awayGoals": 1,
+    "playedAt": "2026-08-29",
+    "id": "a7e4467e-f6c2-491d-992f-131cc9cc6140"
+  },
+  {
+    "homeTeamId": "brighton",
+    "awayTeamId": "fulham",
+    "homeGoals": 1,
+    "awayGoals": 1,
+    "playedAt": "2026-08-29",
+    "id": "8e81f75b-0927-4d74-8ee5-1c1df14cc706"
+  },
+  {
+    "homeTeamId": "nottingham",
+    "awayTeamId": "wolves",
+    "homeGoals": 1,
+    "awayGoals": 2,
+    "playedAt": "2026-08-29",
+    "id": "45862b93-a7a1-4694-9a5b-74f7adf216b5"
+  },
+  {
+    "homeTeamId": "crystal-palace",
+    "awayTeamId": "man-city",
+    "homeGoals": 2,
+    "awayGoals": 1,
+    "playedAt": "2026-08-29",
+    "id": "1e02d27d-ca54-45b7-8c8e-405969777f43"
+  },
+  {
+    "homeTeamId": "brentford",
+    "awayTeamId": "man-utd",
+    "homeGoals": 1,
+    "awayGoals": 2,
+    "playedAt": "2026-08-29",
+    "id": "1ea51979-e94d-4fc3-8355-aaf603fcbc0e"
+  },
+  {
+    "homeTeamId": "west-ham",
+    "awayTeamId": "arsenal",
+    "homeGoals": 0,
+    "awayGoals": 1,
+    "playedAt": "2026-08-29",
+    "id": "8161b0b7-1cf9-46ba-ab2c-9182516d924a"
+  },
+  {
+    "homeTeamId": "chelsea",
+    "awayTeamId": "southampton",
+    "homeGoals": 3,
+    "awayGoals": 1,
+    "playedAt": "2026-08-29",
+    "id": "dbcd876d-fccb-4e2d-8048-019c7fb98df5"
+  },
+  {
+    "homeTeamId": "tottenham",
+    "awayTeamId": "aston-villa",
+    "homeGoals": 2,
+    "awayGoals": 2,
+    "playedAt": "2026-08-30",
+    "id": "d358c828-61d1-43c3-b441-21a70d203b46"
+  },
+  {
+    "homeTeamId": "ipswich",
+    "awayTeamId": "newcastle",
+    "homeGoals": 1,
+    "awayGoals": 2,
+    "playedAt": "2026-08-30",
+    "id": "eb2f88fc-c04d-4543-b53c-801898170e0d"
+  }
+]
