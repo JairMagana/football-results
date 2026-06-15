@@ -5,19 +5,13 @@ import type { Match, Team } from "@/lib/types";
 interface MatchListProps {
   matches: Match[];
   teams: Team[];
-  onMatchDeleted: () => void;
 }
 
-export default function MatchList({ matches, teams, onMatchDeleted }: MatchListProps) {
+export default function MatchList({ matches, teams }: MatchListProps) {
   const teamMap = new Map(teams.map((team) => [team.id, team.name]));
   const sortedMatches = [...matches].sort(
     (a, b) => new Date(b.playedAt).getTime() - new Date(a.playedAt).getTime()
   );
-
-  async function handleDelete(id: string) {
-    const response = await fetch(`/api/matches?id=${id}`, { method: "DELETE" });
-    if (response.ok) onMatchDeleted();
-  }
 
   return (
     <section className="card">
@@ -27,7 +21,7 @@ export default function MatchList({ matches, teams, onMatchDeleted }: MatchListP
       </div>
 
       {sortedMatches.length === 0 ? (
-        <p className="empty-state">No results yet. Register your first match above.</p>
+        <p className="empty-state">No results yet.</p>
       ) : (
         <ul className="match-list">
           {sortedMatches.map((match) => (
@@ -40,14 +34,6 @@ export default function MatchList({ matches, teams, onMatchDeleted }: MatchListP
                 </span>
                 <span className="match-team">{teamMap.get(match.awayTeamId) ?? "Unknown"}</span>
               </div>
-              <button
-                type="button"
-                className="btn-ghost"
-                onClick={() => handleDelete(match.id)}
-                aria-label="Delete match"
-              >
-                Delete
-              </button>
             </li>
           ))}
         </ul>
@@ -57,7 +43,7 @@ export default function MatchList({ matches, teams, onMatchDeleted }: MatchListP
 }
 
 function formatDate(value: string): string {
-  return new Date(value).toLocaleDateString("en-GB", {
+  return new Date(`${value}T00:00:00`).toLocaleDateString("en-GB", {
     day: "numeric",
     month: "short",
     year: "numeric",

@@ -11,18 +11,14 @@ export default function Home() {
             </span>
             Football Results
           </div>
-          <div className="nav-links">
-            <span>Table</span>
-            <span>Results</span>
-            <span>Register</span>
-          </div>
         </nav>
       </header>
       <section className="hero">
-        <p className="eyebrow">Season tracker</p>
-        <h1>The league, one result at a time</h1>
+        <p className="eyebrow">World Cup 2026</p>
+        <h1>Every result, updated live</h1>
         <p className="subtitle">
-          Register match results and watch the league table update automatically.
+          Match results pulled automatically from Flashscore, with the standings
+          recalculated on every visit.
         </p>
       </section>
       <main>

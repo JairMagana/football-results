@@ -132,6 +132,19 @@ main {
   align-items: start;
 }
 
+.dashboard-single {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.banner {
+  border: 1px solid var(--red);
+  background: var(--red-soft);
+  border-radius: var(--radius);
+  padding: 0.85rem 1.1rem;
+}
+
 .dashboard-main,
 .dashboard-sidebar {
   display: flex;
@@ -386,7 +399,7 @@ select:focus {
 
 .match-item {
   display: grid;
-  grid-template-columns: 110px 1fr auto;
+  grid-template-columns: 110px 1fr;
   gap: 1rem;
   align-items: center;
   padding: 0.95rem 1.4rem;

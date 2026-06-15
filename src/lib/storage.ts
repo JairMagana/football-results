@@ -57,6 +57,11 @@ export async function getMatches(): Promise<Match[]> {
   return readJsonFile(MATCHES_FILE, []);
 }
 
+export async function replaceData(teams: Team[], matches: Match[]): Promise<void> {
+  await writeJsonFile(TEAMS_FILE, teams);
+  await writeJsonFile(MATCHES_FILE, matches);
+}
+
 export async function addMatch(
   match: Omit<Match, "id">
 ): Promise<{ match: Match } | { error: string }> {

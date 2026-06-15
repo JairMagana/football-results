@@ -1,22 +1,106 @@
 [
-  { "id": "arsenal", "name": "Arsenal" },
-  { "id": "aston-villa", "name": "Aston Villa" },
-  { "id": "bournemouth", "name": "Bournemouth" },
-  { "id": "brentford", "name": "Brentford" },
-  { "id": "brighton", "name": "Brighton" },
-  { "id": "chelsea", "name": "Chelsea" },
-  { "id": "crystal-palace", "name": "Crystal Palace" },
-  { "id": "everton", "name": "Everton" },
-  { "id": "fulham", "name": "Fulham" },
-  { "id": "ipswich", "name": "Ipswich Town" },
-  { "id": "leicester", "name": "Leicester City" },
-  { "id": "liverpool", "name": "Liverpool" },
-  { "id": "man-city", "name": "Manchester City" },
-  { "id": "man-utd", "name": "Manchester United" },
-  { "id": "newcastle", "name": "Newcastle United" },
-  { "id": "nottingham", "name": "Nottingham Forest" },
-  { "id": "southampton", "name": "Southampton" },
-  { "id": "tottenham", "name": "Tottenham Hotspur" },
-  { "id": "west-ham", "name": "West Ham United" },
-  { "id": "wolves", "name": "Wolverhampton Wanderers" }
+  {
+    "id": "alemania",
+    "name": "Alemania"
+  },
+  {
+    "id": "australia",
+    "name": "Australia"
+  },
+  {
+    "id": "bosnia-herzegovina",
+    "name": "Bosnia-Herzegovina"
+  },
+  {
+    "id": "brasil",
+    "name": "Brasil"
+  },
+  {
+    "id": "cabo-verde",
+    "name": "Cabo Verde"
+  },
+  {
+    "id": "canada",
+    "name": "Canadá"
+  },
+  {
+    "id": "catar",
+    "name": "Catar"
+  },
+  {
+    "id": "corea-del-sur",
+    "name": "Corea del Sur"
+  },
+  {
+    "id": "costa-de-marfil",
+    "name": "Costa de Marfil"
+  },
+  {
+    "id": "curazao",
+    "name": "Curazao"
+  },
+  {
+    "id": "ecuador",
+    "name": "Ecuador"
+  },
+  {
+    "id": "ee-uu",
+    "name": "EE. UU."
+  },
+  {
+    "id": "escocia",
+    "name": "Escocia"
+  },
+  {
+    "id": "espana",
+    "name": "España"
+  },
+  {
+    "id": "haiti",
+    "name": "Haití"
+  },
+  {
+    "id": "japon",
+    "name": "Japón"
+  },
+  {
+    "id": "marruecos",
+    "name": "Marruecos"
+  },
+  {
+    "id": "mexico",
+    "name": "México"
+  },
+  {
+    "id": "paises-bajos",
+    "name": "Países Bajos"
+  },
+  {
+    "id": "paraguay",
+    "name": "Paraguay"
+  },
+  {
+    "id": "republica-checa",
+    "name": "República Checa"
+  },
+  {
+    "id": "sudafrica",
+    "name": "Sudáfrica"
+  },
+  {
+    "id": "suecia",
+    "name": "Suecia"
+  },
+  {
+    "id": "suiza",
+    "name": "Suiza"
+  },
+  {
+    "id": "tunez",
+    "name": "Túnez"
+  },
+  {
+    "id": "turquia",
+    "name": "Turquía"
+  }
 ]
