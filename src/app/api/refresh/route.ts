@@ -1,3 +1,5 @@
+console.log("REFRESH EJECUTADO", new Date().toISOString());
+
 import { NextResponse } from "next/server";
 import { scrapeWorldCup } from "@/lib/scrape";
 import { replaceData } from "@/lib/storage";
