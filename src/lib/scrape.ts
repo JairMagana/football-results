@@ -155,6 +155,8 @@ async function scrapeResults(browser: Browser): Promise<{ teams: Team[]; matches
       return results;
     });
 
+    console.log("RAW MATCHES:", raw.length);
+    
     const teamMap = new Map<string, Team>();
     const matches: Match[] = [];
 
