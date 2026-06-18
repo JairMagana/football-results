@@ -50,7 +50,9 @@ async function scrapeGroups(browser: Browser): Promise<Group[]> {
   const page = await browser.newPage();
   try {
     await page.goto(STANDINGS_URL, { waitUntil: "domcontentloaded", timeout: 30000 });
-    await page.waitForSelector(".ui-table__row", { timeout: 15000 });
+    await page.screenshot({ path: "debug-results.png", fullPage: true });
+    //await page.waitForSelector(".ui-table__row", { timeout: 15000 });
+    await page.waitForTimeout(8000);
 
     return await page.evaluate(() => {
       const nodes = [
