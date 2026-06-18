@@ -1,4 +1,4 @@
-Este es el packager.json {
+{
   "name": "football-results",
   "version": "0.1.0",
   "private": true,
