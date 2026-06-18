@@ -111,7 +111,7 @@ async function scrapeResults(browser: Browser): Promise<{ teams: Team[]; matches
   const page = await browser.newPage();
   try {
     await page.goto(RESULTS_URL, { waitUntil: "domcontentloaded", timeout: 30000 });
-    await page.screenshot({ path: "results-page.png", fullPage: true });
+    //await page.screenshot({ path: "results-page.png", fullPage: true });
     await page.waitForSelector(".event__match", { timeout: 15000 });
 
     const raw: RawMatch[] = await page.evaluate(() => {
