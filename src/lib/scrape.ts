@@ -150,7 +150,8 @@ async function scrapeResults(browser: Browser): Promise<{ teams: Team[]; matches
 
         results.push({ date: time, home, away, homeGoals, awayGoals });
       }
-
+      console.log("NODOS ENCONTRADOS:", nodes.length);
+      console.log("RESULTADOS ENCONTRADOS:", results.length);
       return results;
     });
 
