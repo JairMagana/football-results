@@ -14,12 +14,12 @@ export async function POST() {
     }
     await replaceData(groups, teams, matches, fixtures);
     console.log(
-  "SCRAPE:",
-  "groups=", groups.length,
-  "teams=", teams.length,
-  "matches=", matches.length,
-  "fixtures=", fixtures.length
-);
+    "SCRAPE:",
+    "groups=", groups.length,
+    "teams=", teams.length,
+    "matches=", matches.length,
+    "fixtures=", fixtures.length
+    );
     return NextResponse.json({
       groups: groups.length,
       teams: teams.length,
