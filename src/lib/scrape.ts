@@ -288,6 +288,7 @@ export async function scrapeWorldCup(): Promise<{
   matches: Match[];
   fixtures: Fixture[];
 }> {
+  process.env.PLAYWRIGHT_BROWSERS_PATH = '0'; 
   const browser = await chromium.launch({ headless: true });
   try {
     const groups = await scrapeGroups(browser);
