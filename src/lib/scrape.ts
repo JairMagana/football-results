@@ -52,13 +52,6 @@ async function scrapeGroups(browser: Browser): Promise<Group[]> {
     await page.goto(STANDINGS_URL, { waitUntil: "domcontentloaded", timeout: 30000 });
     await page.waitForSelector(".ui-table__row", { timeout: 15000 });
 
-results.push({
-  date: time,
-  home,
-  away,
-  homeGoals: Number.isNaN(homeGoals) ? 0 : homeGoals,
-  awayGoals: Number.isNaN(awayGoals) ? 0 : awayGoals,
-});
     return await page.evaluate(() => {
       const nodes = [
         ...document.querySelectorAll(".table__headerCell--participant, .ui-table__row"),
@@ -115,7 +108,7 @@ results.push({
 }
 
 async function scrapeResults(browser: Browser): Promise<{ teams: Team[]; matches: Match[] }> {
-const page = await browser.newPage();
+  const page = await browser.newPage();
   try {
     await page.goto(RESULTS_URL, { waitUntil: "domcontentloaded", timeout: 30000 });
     await page.waitForSelector(".event__match", { timeout: 15000 });
@@ -134,7 +127,8 @@ const page = await browser.newPage();
 
       for (const node of nodes) {
         if (node.classList.contains("headerLeague__wrapper")) {
-          if (/clasificaci/i.test(node.textContent || "")) continue;
+          if (/clasificaci/i.test(node.textContent || "")) break;
+          continue;
         }
 
         const time = node.querySelector(".event__time")?.textContent?.trim() || "";
