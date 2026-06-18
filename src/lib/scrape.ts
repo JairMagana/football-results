@@ -115,9 +115,10 @@ results.push({
 }
 
 async function scrapeResults(browser: Browser): Promise<{ teams: Team[]; matches: Match[] }> {
-  const page = await browser.newPage();
+const page = await browser.newPage();
   try {
     await page.goto(RESULTS_URL, { waitUntil: "domcontentloaded", timeout: 30000 });
+    await page.screenshot({ path: "results-page.png", fullPage: true });
     await page.waitForSelector(".event__match", { timeout: 15000 });
 
     const raw: RawMatch[] = await page.evaluate(() => {
@@ -134,8 +135,7 @@ async function scrapeResults(browser: Browser): Promise<{ teams: Team[]; matches
 
       for (const node of nodes) {
         if (node.classList.contains("headerLeague__wrapper")) {
-          if (/clasificaci/i.test(node.textContent || "")) break;
-            continue;
+          if (/clasificaci/i.test(node.textContent || "")) continue;
         }
 
         const time = node.querySelector(".event__time")?.textContent?.trim() || "";
