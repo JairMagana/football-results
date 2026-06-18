@@ -13,6 +13,13 @@ export async function POST() {
       return NextResponse.json({ degraded: true, reason: "No data scraped." });
     }
     await replaceData(groups, teams, matches, fixtures);
+    console.log(
+  "SCRAPE:",
+  "groups=", groups.length,
+  "teams=", teams.length,
+  "matches=", matches.length,
+  "fixtures=", fixtures.length
+);
     return NextResponse.json({
       groups: groups.length,
       teams: teams.length,
