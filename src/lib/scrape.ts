@@ -1,7 +1,5 @@
-//import { chromium, type Browser } from "playwright";
-//import type { Fixture, Group, Match, Team } from "./types";
-import { chromium } from "playwright-core";
-import chromiumPuppet from "@sparticuz/chromium";
+import { chromium, type Browser } from "playwright";
+import type { Fixture, Group, Match, Team } from "./types";
 
 const STANDINGS_URL =
   "https://www.flashscore.com.mx/futbol/mundial/campeonato-del-mundo/clasificacion/";
@@ -243,21 +241,19 @@ async function scrapeFixtures(browser: Browser): Promise<Fixture[]> {
   }
 }
 
-export async function scrapeWorldCup() {
-  // Configuración obligatoria para entornos la nube sin interfaz gráfica
-  const browser = await chromium.launch({
-    args: chromiumPuppet.args,
-    executablePath: await chromiumPuppet.executablePath(),
-    headless: true,
-  });
-
+export async function scrapeWorldCup(): Promise<{
+  groups: Group[];
+  teams: Team[];
+  matches: Match[];
+  fixtures: Fixture[];
+}> {
+  const browser = await chromium.launch({ headless: true });
   try {
+    const groups = await scrapeGroups(browser);
     const { teams, matches } = await scrapeResults(browser);
     const fixtures = await scrapeFixtures(browser);
-    const groups = await scrapeGroups(browser);
-
     return { groups, teams, matches, fixtures };
   } finally {
-    await browser.close(); // Siempre cerramos el navegador para evitar fugas de memoria
+    await browser.close();
   }
 }
