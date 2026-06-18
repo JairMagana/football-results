@@ -119,12 +119,6 @@ async function scrapeResults(browser: Browser): Promise<{ teams: Team[]; matches
   try {
     await page.goto(RESULTS_URL, { waitUntil: "domcontentloaded", timeout: 30000 });
     await page.waitForSelector(".event__match", { timeout: 15000 });
-    const title = await page.title();
-    console.log("PAGE TITLE:", title);
-
-    const content = await page.textContent("body");
-    console.log("BELGICA:", content?.includes("Bélgica"));
-    console.log("EGIPTO:", content?.includes("Egipto"));
 
     const raw: RawMatch[] = await page.evaluate(() => {
       const clean = (text: string | null | undefined) =>
