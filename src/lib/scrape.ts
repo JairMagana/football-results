@@ -206,7 +206,7 @@ async function scrapeFixtures(browser: Browser): Promise<Fixture[]> {
 
       for (const node of nodes) {
         if (node.classList.contains("headerLeague__wrapper")) {
-          if (/clasificaci/i.test(node.textContent || "")) break;
+          if (/clasificaci/i.test(node.textContent || "")) continue;
           continue;
         }
 
