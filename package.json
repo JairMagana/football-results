@@ -1,13 +1,12 @@
-{
+Este es el packager.json {
   "name": "football-results",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "vercel-build": "npx playwright install chromium && next build"
+    "lint": "next lint"
   },
   "dependencies": {
     "next": "^15.3.3",
@@ -25,3 +24,4 @@
     "typescript": "^5.8.3"
   }
 }
+
