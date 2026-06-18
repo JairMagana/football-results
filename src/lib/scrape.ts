@@ -110,15 +110,9 @@ async function scrapeGroups(browser: Browser): Promise<Group[]> {
 async function scrapeResults(browser: Browser): Promise<{ teams: Team[]; matches: Match[] }> {
   const page = await browser.newPage();
   try {
-    await page.goto(RESULTS_URL, { waitUntil: "domcontentloaded", timeout: 60000 });
+    await page.goto(RESULTS_URL, { waitUntil: "domcontentloaded", timeout: 30000 });
     await page.waitForSelector(".event__match", { timeout: 15000 });
-    
-    // --- 1. AQUÍ VA EL SCROLL AUTOMÁTICO PARA CARGAR TODOS LOS PARTIDOS ---
-    for (let i = 0; i < 6; i++) {
-      await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
-      await page.waitForTimeout(1500); // Espera a que Flashscore cargue el siguiente bloque de partidos
-    }
-    
+
     const raw: RawMatch[] = await page.evaluate(() => {
       const clean = (text: string | null | undefined) =>
         (text || "")
@@ -133,7 +127,7 @@ async function scrapeResults(browser: Browser): Promise<{ teams: Team[]; matches
 
       for (const node of nodes) {
         if (node.classList.contains("headerLeague__wrapper")) {
-          if (/clasificaci/i.test(node.textContent || "")) continue;
+          if (/clasificaci/i.test(node.textContent || "")) break;
           continue;
         }
 
@@ -146,53 +140,18 @@ async function scrapeResults(browser: Browser): Promise<{ teams: Team[]; matches
           node.querySelector('[class*="event__awayParticipant"]')?.textContent ||
             node.querySelector(".event__participant--away")?.textContent
         );
-        
-        // --- 2. AQUÍ SE LIMPIAN LOS GOLES PARA EVITAR EL ERROR DE EMPATE ---
-        let hgText = node.querySelector('[class*="event__score--home"]')?.textContent?.trim() || "";
-        let agText = node.querySelector('[class*="event__score--away"]')?.textContent?.trim() || "";
+        const hg = node.querySelector('[class*="event__score--home"]')?.textContent?.trim();
+        const ag = node.querySelector('[class*="event__score--away"]')?.textContent?.trim();
 
-        // Removemos prórrogas, penales o asteriscos dejando solo el número puro
-        hgText = hgText.replace(/[^0-9]/g, "");
-        agText = agText.replace(/[^0-9]/g, "");
-
-        const homeGoals = hgText ? Number(hgText) : 0;
-        const awayGoals = agText ? Number(agText) : 0;
+        const homeGoals = Number(hg);
+        const awayGoals = Number(ag);
+        if (!home || !away || Number.isNaN(homeGoals) || Number.isNaN(awayGoals)) continue;
 
         results.push({ date: time, home, away, homeGoals, awayGoals });
       }
+
       return results;
     });
-
-    // NOTA: Eliminamos el "throw new Error" de prueba que tenías aquí para que el flujo no se corte
-    
-    const teamMap = new Map<string, Team>();
-    const matches: Match[] = [];
-
-    for (const r of raw) {
-      const homeId = slugify(r.home);
-      const awayId = slugify(r.away);
-      if (!homeId || !awayId) continue;
-
-      teamMap.set(homeId, { id: homeId, name: r.home });
-      teamMap.set(awayId, { id: awayId, name: r.away });
-
-      const playedAt = toIsoDate(r.date);
-      matches.push({
-        id: `${playedAt}-${homeId}-${awayId}`,
-        homeTeamId: homeId,
-        awayTeamId: awayId,
-        homeGoals: r.homeGoals,
-        awayGoals: r.awayGoals,
-        playedAt,
-      });
-    }
-
-    const teams = [...teamMap.values()].sort((a, b) => a.name.localeCompare(b.name));
-    return { teams, matches };
-  } finally {
-    await page.close();
-  }
-}
 
     const teamMap = new Map<string, Team>();
     const matches: Match[] = [];
@@ -287,7 +246,7 @@ export async function scrapeWorldCup(): Promise<{
   teams: Team[];
   matches: Match[];
   fixtures: Fixture[];
-}> { 
+}> {
   const browser = await chromium.launch({ headless: true });
   try {
     const groups = await scrapeGroups(browser);
