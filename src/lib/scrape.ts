@@ -51,7 +51,7 @@ async function scrapeGroups(browser: Browser): Promise<Group[]> {
   try {
     await page.goto(STANDINGS_URL, { waitUntil: "domcontentloaded", timeout: 30000 });
     await page.waitForSelector(".ui-table__row", { timeout: 15000 });
-
+    await page.waitForTimeout(5000);
     return await page.evaluate(() => {
       const nodes = [
         ...document.querySelectorAll(".table__headerCell--participant, .ui-table__row"),
