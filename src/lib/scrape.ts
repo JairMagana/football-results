@@ -114,10 +114,10 @@ async function scrapeResults(browser: Browser): Promise<{ teams: Team[]; matches
     await page.waitForSelector(".event__match", { timeout: 15000 });
 
     const raw: RawMatch[] = await page.evaluate(() => {
+      console.log("RESULTADOS ENCONTRADOS:", raw.length);
+        console.log("PRIMEROS RESULTADOS:", raw.slice(0, 5));
       const clean = (text: string | null | undefined) =>
         (text || "")
-        console.log("RESULTADOS ENCONTRADOS:", raw.length);
-        console.log("PRIMEROS RESULTADOS:", raw.slice(0, 5));
           .replace(/Equipo que avanza.*$|Vencedor.*$/i, "")
           .replace(/\d+$/, "")
           .trim();
