@@ -6,7 +6,6 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export async function POST() {
-  console.log("REFRESH EJECUTADO", new Date().toISOString());
   try {
     const { groups, teams, matches, fixtures } = await scrapeWorldCup();
     if (groups.length === 0 && matches.length === 0) {
