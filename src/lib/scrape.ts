@@ -112,7 +112,8 @@ async function scrapeResults(browser: Browser): Promise<{ teams: Team[]; matches
   try {
     await page.goto(RESULTS_URL, { waitUntil: "domcontentloaded", timeout: 30000 });
     await page.waitForSelector(".event__match", { timeout: 15000 });
-
+    await page.waitForTimeout(5000);
+    
     const raw: RawMatch[] = await page.evaluate(() => {
       const clean = (text: string | null | undefined) =>
         (text || "")
