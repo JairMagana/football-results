@@ -110,7 +110,7 @@ async function scrapeGroups(browser: Browser): Promise<Group[]> {
 async function scrapeResults(browser: Browser): Promise<{ teams: Team[]; matches: Match[] }> {
   const page = await browser.newPage();
   try {
-    await page.goto(RESULTS_URL, { waitUntil: "domcontentloaded", timeout: 30000 });
+    await page.goto(RESULTS_URL, { waitUntil: "domcontentloaded", timeout: 60000 });
     await page.waitForSelector(".event__match", { timeout: 15000 });
     await page.waitForTimeout(5000);
     
