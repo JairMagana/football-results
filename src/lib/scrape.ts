@@ -148,7 +148,7 @@ async function scrapeResults(browser: Browser): Promise<{ teams: Team[]; matches
 
         const homeGoals = Number(hg);
         const awayGoals = Number(ag);
-        if (!home || !away || Number.isNaN(homeGoals) || Number.isNaN(awayGoals)) continue;
+        //if (!home || !away || Number.isNaN(homeGoals) || Number.isNaN(awayGoals)) continue;
 
         results.push({ date: time, home, away, homeGoals, awayGoals });
       }
