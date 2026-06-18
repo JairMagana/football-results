@@ -128,7 +128,8 @@ async function scrapeResults(browser: Browser): Promise<{ teams: Team[]; matches
 
       for (const node of nodes) {
         if (node.classList.contains("headerLeague__wrapper")) {
-          if (/clasificaci/i.test(node.textContent || "")) continue;
+          if (/clasificaci/i.test(node.textContent || "")) break;
+            continue;
         }
 
         const time = node.querySelector(".event__time")?.textContent?.trim() || "";
