@@ -25,7 +25,8 @@ export async function POST() {
       teams: teams.length,
       matches: matches.length,
       fixtures: fixtures.length,
-      lastMatches: matches.slice(0, 3),
+      firstMatch: matches[0],
+      lastMatch: matches[matches.length - 1],
     });
   } catch (err) {
     // A browser may not be available at runtime (e.g. serverless/sandbox).
